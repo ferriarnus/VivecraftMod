@@ -1,65 +1,48 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id 'multiloader-loader'
+    id 'fabric-loom'
 }
-
-architectury {
-    platformSetupLoomIde()
-    fabric()
-}
-
-loom {
-    accessWidenerPath = project(":common").loom.accessWidenerPath
-}
-
-configurations {
-    common
-    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentFabric.extendsFrom common
-}
-
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
-
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
-
-    modCompileOnly("dev.architectury:architectury-fabric:${rootProject.architectury_version}") { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" }
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${parchment_minecraft}:${parchment_version}@zip")
+    }
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
     // for sodium compat
-    modCompileOnly "maven.modrinth:sodium:mc1.21.11-0.8.2-fabric"
-
-    // for iris compat
-    modCompileOnly "maven.modrinth:iris:1.10.4+1.21.11-fabric"
-    modCompileOnly 'org.anarres:jcpp:1.4.14' //temp iris
-    modCompileOnly 'io.github.douira:glsl-transformer:3.0.0-pre3' //temp iris
-
-    // for REI compat
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-fabric:18.0.796") { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" exclude group: "dev.architectury" }
-
-    // for Pehkui compat
-    modCompileOnly("com.github.Virtuoel:Pehkui:3.7.12") { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" }
-
-    // other mods
-    // modRuntimeOnly("com.simibubi.create:create-fabric-1.19.2:0.5.0.i-969+1.19.2")
-    // modCompileOnly "maven.modrinth:lithium:mc1.20.4-0.12.1"
-    // modCompileOnly "maven.modrinth:indium:1.0.30+mc1.20.4"
-
-    //mod menu
-    modCompileOnly("com.terraformersmc:modmenu:17.0.0-beta.1") { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" }
-
-    // for immersive portals compat
-    modCompileOnly('com.github.iPortalTeam:ImmersivePortalsMod:v5.1.7-mc1.20.4') { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" }
+//    modCompileOnly "maven.modrinth:sodium:mc1.21.11-0.8.2-fabric"
+//
+//    // for iris compat
+//    modCompileOnly "maven.modrinth:iris:1.10.4+1.21.11-fabric"
+//    modCompileOnly 'org.anarres:jcpp:1.4.14' //temp iris
+//    modCompileOnly 'io.github.douira:glsl-transformer:3.0.0-pre3' //temp iris
+//
+//    // for REI compat
+//    modCompileOnly("me.shedaniel:RoughlyEnoughItems-fabric:18.0.796") { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" exclude group: "dev.architectury" }
+//
+//    // for Pehkui compat
+//    modCompileOnly("com.github.Virtuoel:Pehkui:3.7.12") { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" }
+//
+//    // other mods
+//    // modRuntimeOnly("com.simibubi.create:create-fabric-1.19.2:0.5.0.i-969+1.19.2")
+//    // modCompileOnly "maven.modrinth:lithium:mc1.20.4-0.12.1"
+//    // modCompileOnly "maven.modrinth:indium:1.0.30+mc1.20.4"
+//
+//    //mod menu
+//    modCompileOnly("com.terraformersmc:modmenu:17.0.0-beta.1") { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" }
+//
+//    // for immersive portals compat
+//    modCompileOnly('com.github.iPortalTeam:ImmersivePortalsMod:v5.1.7-mc1.20.4') { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" }
 
     // needed for resource loading
-    include(modImplementation(fabricApi.module("fabric-resource-loader-v0", rootProject.fabric_api_version)))
-    include(modImplementation(fabricApi.module("fabric-resource-loader-v1", rootProject.fabric_api_version)))
+    //include(modImplementation(fabricApi.module("fabric-resource-loader-v0", rootProject.fabric_api_version)))
+    //include(modImplementation(fabricApi.module("fabric-resource-loader-v1", rootProject.fabric_api_version)))
     // commands also needs base
-    include(modImplementation(fabricApi.module("fabric-api-base", rootProject.fabric_api_version)))
-    include(modImplementation(fabricApi.module("fabric-command-api-v2", rootProject.fabric_api_version)))
-    include(modImplementation(fabricApi.module("fabric-networking-api-v1", rootProject.fabric_api_version)))
+    //include(modImplementation(fabricApi.module("fabric-api-base", rootProject.fabric_api_version)))
+    //include(modImplementation(fabricApi.module("fabric-command-api-v2", rootProject.fabric_api_version)))
+    //include(modImplementation(fabricApi.module("fabric-networking-api-v1", rootProject.fabric_api_version)))
 
     include(implementation('com.electronwill.night-config:toml:3.6.6'))
     include(implementation('com.electronwill.night-config:core:3.6.6'))
@@ -72,48 +55,54 @@ dependencies {
     include(implementation("com.illposed.osc:javaosc-core:0.9"))
     include(implementation("com.github.bhaptics:tact-java:0.1.4"))
     include(implementation("org.java-websocket:Java-WebSocket:1.5.1"))
-
 }
 
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
+loom {
+    def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
+    if (aw.exists()) {
+        accessWidenerPath.set(aw)
+    }
+    mixin {
+        defaultRefmapName.set("${mod_id}.refmap.json")
+    }
+    runs {
+        client {
+            client()
+            setConfigName('Fabric Client')
+            ideConfigGenerated(true)
+            runDir('runs/client')
+        }
+        server {
+            server()
+            setConfigName('Fabric Server')
+            ideConfigGenerated(true)
+            runDir('runs/server')
+        }
     }
 }
 
-shadowJar {
-    exclude "architectury.common.json"
-
-    configurations = [project.configurations.shadowCommon]
-    archiveClassifier.set("dev-shadow")
-}
-
-remapJar {
-    injectAccessWidener = true
-    input.set shadowJar.archiveFile
-    dependsOn shadowJar
-    archiveClassifier.set('fabric')
-}
-
-jar {
-    archiveClassifier.set("dev")
-    manifest {
-        attributes(
-            'Main-Class': "org.vivecraft.LaunchPopup"
-        )
+// Implement mcgradleconventions loader attribute
+def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
+['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements', 'includeInternal', 'modCompileClasspath'].each { variant ->
+    configurations.named("$variant") {
+        attributes {
+            attribute(loaderAttribute, 'fabric')
+        }
     }
 }
-
-sourcesJar {
-    def commonSources = project(":common").sourcesJar
-    dependsOn commonSources
-    from commonSources.archiveFile.map { zipTree(it) }
+sourceSets.configureEach {
+    [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName].each { variant->
+        configurations.named("$variant") {
+            attributes {
+                attribute(loaderAttribute, 'fabric')
+            }
+        }
+    }
 }
-
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
+loom.remapConfigurations.configureEach {
+    configurations.named(it.name) {
+        attributes {
+            attribute(loaderAttribute, 'fabric')
+        }
     }
 }

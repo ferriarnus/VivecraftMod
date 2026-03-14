@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vivecraft.Services;
 import org.vivecraft.Xplat;
 import org.vivecraft.api.data.FBTMode;
 import org.vivecraft.api.data.VRBodyPart;
@@ -437,7 +438,7 @@ public class ServerNetworking {
                 {
                     continue;
                 }
-                vivePlayer.player.connection.send(Xplat.getS2CPacket(payload));
+                vivePlayer.player.connection.send(Services.XPLAT.getS2CPacket(payload));
             }
         }
     }
@@ -458,7 +459,7 @@ public class ServerNetworking {
 
         // update if vr switching is allowed
         for (ServerVivePlayer vivePlayer : ServerVRPlayers.getPlayersWithVivecraft(server).values()) {
-            vivePlayer.player.connection.send(Xplat.getS2CPacket(getVRSwitchingPayload()));
+            vivePlayer.player.connection.send(Services.XPLAT.getS2CPacket(getVRSwitchingPayload()));
         }
     }
 
@@ -487,7 +488,7 @@ public class ServerNetworking {
             NetworkVersion.HAPTIC_PACKET.accepts(vivePlayer.networkVersion))
         {
             vivePlayer.player.connection.send(
-                Xplat.getS2CPacket(new HapticPayloadS2C(bodyPart, duration, frequency, amplitude, delay)));
+                Services.XPLAT.getS2CPacket(new HapticPayloadS2C(bodyPart, duration, frequency, amplitude, delay)));
         }
     }
 
@@ -498,11 +499,11 @@ public class ServerNetworking {
      */
     public static void sendVrPlayerStateToClients(ServerVivePlayer vivePlayer) {
         // create the packets here, to try to avoid unnecessary memory copies when creating multiple packets
-        Packet<?> legacyPacket = Xplat.getS2CPacket(
+        Packet<?> legacyPacket = Services.XPLAT.getS2CPacket(
             new UberPacketPayloadS2C(vivePlayer.player.getUUID(),
                 new VrPlayerState(vivePlayer.vrPlayerState(), NetworkVersion.LEGACY),
                 vivePlayer.worldScale, vivePlayer.heightScale));
-        Packet<?> newPacket = Xplat.getS2CPacket(
+        Packet<?> newPacket = Services.XPLAT.getS2CPacket(
             new UberPacketPayloadS2C(vivePlayer.player.getUUID(), vivePlayer.vrPlayerState(), vivePlayer.worldScale,
                 vivePlayer.heightScale));
 
@@ -530,7 +531,7 @@ public class ServerNetworking {
      * @param payload    payload to send
      */
     private static void sendPacketToTrackingPlayers(ServerVivePlayer vivePlayer, VivecraftPayloadS2C payload) {
-        Packet<?> packet = Xplat.getS2CPacket(payload);
+        Packet<?> packet = Services.XPLAT.getS2CPacket(payload);
         sendPacketToTrackingPlayers(vivePlayer, (v) -> packet);
     }
 

@@ -16,6 +16,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.Util;
 import org.joml.Matrix4f;
+import org.vivecraft.Services;
 import org.vivecraft.Xplat;
 import org.vivecraft.api.client.data.RenderPass;
 import org.vivecraft.client.extensions.RenderTargetExtension;
@@ -540,7 +541,7 @@ public abstract class VRRenderer {
             // main render target
             if (dataholder.vrSettings.vrUseStencil && StencilHelper.stencilBufferSupported()) {
                 ((RenderTargetExtension) WorldRenderPass.STEREO_XR.target)
-                    .vivecraft$setStencil(!Xplat.enableRenderTargetStencil(WorldRenderPass.STEREO_XR.target));
+                    .vivecraft$setStencil(!Services.XPLAT.enableRenderTargetStencil(WorldRenderPass.STEREO_XR.target));
             } else {
                 ((RenderTargetExtension) WorldRenderPass.STEREO_XR.target).vivecraft$setStencil(false);
             }

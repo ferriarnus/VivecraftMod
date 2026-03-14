@@ -9,6 +9,7 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
+import org.vivecraft.Services;
 import org.vivecraft.Xplat;
 import org.vivecraft.client.extensions.GlDeviceExtension;
 import org.vivecraft.client.extensions.RenderTargetExtension;
@@ -37,7 +38,7 @@ public class VRTextureTarget extends RenderTarget {
         this.width = width;
         this.height = height;
 
-        if (useStencil && !Xplat.enableRenderTargetStencil(this)) {
+        if (useStencil && !Services.XPLAT.enableRenderTargetStencil(this)) {
             // use our stencil only if the modloader doesn't support it
             ((RenderTargetExtension) this).vivecraft$setStencil(true);
         }

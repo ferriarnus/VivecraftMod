@@ -14,31 +14,31 @@ import java.util.List;
 
 public class XloaderImpl implements Xloader {
 
-    public static ModLoader getModloader() {
+    public ModLoader getModloader() {
         return ModLoader.NEOFORGE;
     }
 
-    public static boolean isModLoaded(String name) {
+    public boolean isModLoaded(String name) {
         return FMLLoader.getCurrent().getLoadingModList().getModFileById(name) != null;
     }
 
-    public static String getModVersion() {
-        if (Xloader.isModLoadedSuccess()) {
+    public String getModVersion() {
+        if (isModLoadedSuccess()) {
             return FMLLoader.getCurrent().getLoadingModList().getModFileById("vivecraft").versionString();
         }
         return "no version";
     }
 
-    public static Path getConfigPath(String fileName) {
+    public Path getConfigPath(String fileName) {
         return FMLPaths.CONFIGDIR.get().resolve(fileName);
     }
 
-    public static InputStream getInJarFile(String sourcePath) throws IOException {
+    public InputStream getInJarFile(String sourcePath) throws IOException {
         return FMLLoader.getCurrent().getLoadingModList().getModFileById("vivecraft").getFile().getContents()
             .openFile(sourcePath);
     }
 
-    public static List<Path> getInJarFolderFiles(String folder) throws IOException {
+    public List<Path> getInJarFolderFiles(String folder) throws IOException {
         List<Path> paths = new ArrayList<>();
         Path target = Path.of(folder);
         FMLLoader.getCurrent().getLoadingModList().getModFileById("vivecraft").getFile().getContents()
@@ -51,7 +51,7 @@ public class XloaderImpl implements Xloader {
         return paths;
     }
 
-    public static boolean isDedicatedServer() {
+    public boolean isDedicatedServer() {
         return FMLEnvironment.getDist() == Dist.DEDICATED_SERVER;
     }
 }

@@ -2,6 +2,7 @@ package org.vivecraft.common.utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.locale.Language;
+import org.vivecraft.Services;
 import org.vivecraft.Xloader;
 import org.vivecraft.client_vr.ClientDataHolderVR;
 import org.vivecraft.client_vr.settings.VRSettings;
@@ -74,7 +75,7 @@ public class TooltipUtil {
                 }
             }
         }
-        if (!Xloader.isDedicatedServer()) {
+        if (!Services.XLOADER.isDedicatedServer()) {
             tooltip += getClientOnlyTooltip();
         }
 
