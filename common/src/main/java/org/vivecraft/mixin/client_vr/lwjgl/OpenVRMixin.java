@@ -57,7 +57,7 @@ public abstract class OpenVRMixin {
 
     /**
      * @author thejudge156 / The Judge
-     * @reason Open Composite doesn't implement all function tables, so trying to assign them will make it crash
+     * reason Open Composite doesn't implement all function tables, so trying to assign them will make it crash
      */
     @Overwrite
     public static void create(int tok) {
