@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.vivecraft.client_vr.extensions.BlockModelWrapperExtension;
 
 @Mixin(BlockModelWrapper.Unbaked.class)
-public class BlockModelWrapper$UnbakedVRMixin {
+public class BlockModelWrapper_UnbakedVRMixin {
     @ModifyReturnValue(method = "bake", at = @At("RETURN"))
     private ItemModel vivecraft$setGenerated(ItemModel itemModel, @Local ResolvedModel resolvedModel) {
         if (itemModel instanceof BlockModelWrapperExtension blockModel) {

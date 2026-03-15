@@ -22,6 +22,14 @@ dependencies {
     compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.4.1'
     annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.4.1'
 
+    compileOnly("org.ow2.asm:asm:9.9")
+    compileOnly("org.ow2.asm:asm-tree:9.9")
+    compileOnly("org.ow2.asm:asm-analysis:9.9")
+    compileOnly("org.ow2.asm:asm-commons:9.9")
+    compileOnly("org.ow2.asm:asm-util:9.9")
+
+    compileOnly project(':stubs')
+
     implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}") { transitive = false }
     implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-linux") { transitive = false }
     implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-macos") { transitive = false }
@@ -37,8 +45,37 @@ dependencies {
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")
     compileOnly('com.electronwill.night-config:toml:3.6.6')
 
+    implementation("com.illposed.osc:javaosc-core:0.9")
+    implementation("com.github.bhaptics:tact-java:0.1.4")
+    implementation("org.java-websocket:Java-WebSocket:1.5.1")
+
     //LaunchPopup
     implementation 'com.github.Vivecraft:LaunchPopup:1.1.1'
+
+    // for sodium compat
+    compileOnly "maven.modrinth:sodium:mc1.21.11-0.8.2-fabric"
+
+    // for iris compat
+    compileOnly "maven.modrinth:iris:1.10.4+1.21.11-fabric"
+
+    // for REI compat
+    compileOnly("me.shedaniel:RoughlyEnoughItems-fabric:18.0.796") { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" exclude group: "dev.architectury" }
+
+    // for Pehkui compat
+    compileOnly("com.github.Virtuoel:Pehkui:3.7.12") { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" }
+
+    // other mods
+    compileOnly "maven.modrinth:dynamic-fps:3.4.3"
+    // modCompileOnly("com.simibubi.create:create-fabric-1.19.2:0.5.0.i-969+1.19.2")
+    // modCompileOnly "maven.modrinth:lithium:mc1.20.4-0.12.1"
+    // modCompileOnly "maven.modrinth:indium:1.0.30+mc1.20.4"
+    compileOnly "maven.modrinth:resolution-control-plus:3.0.0"
+
+    // for immersive portals compat
+    compileOnly('com.github.iPortalTeam:ImmersivePortalsMod:v5.1.7-mc1.20.4') { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" }
+
+    //for epic fight compat
+    compileOnly("maven.modrinth:epic-fight:20.6.3")
 }
 
 configurations {

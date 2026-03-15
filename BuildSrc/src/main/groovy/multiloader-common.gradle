@@ -92,7 +92,7 @@ repositories {
     maven { url = "https://cursemaven.com" }
     maven { url = "https://maven.parchmentmc.org" }
     maven { url = "https://maven.tterrag.com/" }
-    maven { url = "https://storage.googleapis.com/devan-maven/" }
+    //maven { url = "https://storage.googleapis.com/devan-maven/" }
     maven { url = "https://maven.shedaniel.me/" }
     maven { url = "https://aperlambda.github.io/maven" }
     maven { url = "https://mvn.devos.one/releases/" }

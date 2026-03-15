@@ -2,6 +2,7 @@ package org.vivecraft.mod_compat_vr.epicfight;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
+import org.vivecraft.Services;
 import org.vivecraft.Xloader;
 import org.vivecraft.client_vr.provider.InputSimulator;
 import org.vivecraft.client_vr.settings.VRSettings;
@@ -25,7 +26,7 @@ public class EpicFightHelper {
     private static KeyMapping EpicFight_ATTACK;
 
     public static boolean isLoaded() {
-        return Xloader.isModLoaded("epicfight");
+        return Services.XLOADER.isModLoaded("epicfight");
     }
 
     /**

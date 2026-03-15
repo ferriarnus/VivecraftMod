@@ -8,11 +8,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.vivecraft.common.network.packet.c2s.VivecraftPayloadC2S;
 import org.vivecraft.common.network.packet.s2c.VivecraftPayloadS2C;
 
@@ -27,7 +31,7 @@ public interface Xplat {
     boolean enableRenderTargetStencil(RenderTarget renderTarget);
 
     /**
-     * @return runtime name of the {@link BlockBehaviour#use} method
+     * @return runtime name of the {@link BlockBehaviour#useWithoutItem(BlockState, Level, BlockPos, Player, BlockHitResult)} method
      */
     String getUseMethodName();
 

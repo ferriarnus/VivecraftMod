@@ -1,12 +1,12 @@
 package org.vivecraft.mod_compat_vr.iris.mixin.irisshaders;
 
 import net.caffeinemc.mods.sodium.client.gl.shader.GlProgram;
+import net.coderbot.iris.pipeline.SodiumTerrainPipeline;
+import net.coderbot.iris.pipeline.WorldRenderingPipeline;
 import net.irisshaders.iris.Iris;
 import net.irisshaders.iris.compat.sodium.impl.shader_overrides.IrisChunkProgramOverrides;
 import net.irisshaders.iris.compat.sodium.impl.shader_overrides.IrisChunkShaderInterface;
 import net.irisshaders.iris.compat.sodium.impl.shader_overrides.IrisTerrainPass;
-import net.irisshaders.iris.pipeline.SodiumTerrainPipeline;
-import net.irisshaders.iris.pipeline.WorldRenderingPipeline;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
