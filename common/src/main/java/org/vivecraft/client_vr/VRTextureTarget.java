@@ -10,12 +10,11 @@ import net.minecraft.util.Mth;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
 import org.vivecraft.Services;
-import org.vivecraft.Xplat;
 import org.vivecraft.client.extensions.GlDeviceExtension;
 import org.vivecraft.client.extensions.RenderTargetExtension;
 import org.vivecraft.client_vr.render.helpers.opengl.OpenGLHelper;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * extension of a regular RenderTarget that sets Vivecraft features on creation

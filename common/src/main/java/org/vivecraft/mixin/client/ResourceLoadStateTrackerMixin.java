@@ -11,7 +11,7 @@ import org.vivecraft.client.api_impl.VRClientAPIImpl;
 import org.vivecraft.client_vr.ClientDataHolderVR;
 import org.vivecraft.client_vr.VRState;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 // we want to be late here, because some mods initialize keybinds after the first reload
 @Mixin(value = ResourceLoadStateTracker.class, priority = 9999)

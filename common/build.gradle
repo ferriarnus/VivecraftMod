@@ -16,6 +16,15 @@ neoForge {
     }
 }
 
+configurations.all {
+    resolutionStrategy.eachDependency { details ->
+        if (details.requested.group == "org.lwjgl" &&
+            details.requested.name != "lwjgl-openvr") {
+            details.useVersion "3.4.1"
+        }
+    }
+}
+
 dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
     // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
@@ -30,6 +39,10 @@ dependencies {
 
     compileOnly project(':stubs')
 
+    implementation("org.lwjgl:lwjgl:3.4.1")
+    implementation("org.lwjgl:lwjgl-opengl:3.4.1")
+    implementation("org.lwjgl:lwjgl:3.4.1:natives-windows")
+    implementation("org.lwjgl:lwjgl-opengl:3.4.1:natives-windows")
     implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}") { transitive = false }
     implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-linux") { transitive = false }
     implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-macos") { transitive = false }

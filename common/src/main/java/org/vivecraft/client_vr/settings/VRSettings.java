@@ -23,7 +23,6 @@ import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vivecraft.Services;
-import org.vivecraft.Xloader;
 import org.vivecraft.api.client.Tracker;
 import org.vivecraft.api.client.data.CloseKeyboardContext;
 import org.vivecraft.api.client.data.OpenKeyboardContext;
@@ -46,7 +45,7 @@ import org.vivecraft.client_vr.render.VRShaders;
 import org.vivecraft.common.utils.math.AngleOrder;
 import org.vivecraft.mod_compat_vr.shaders.ShadersHelper;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.awt.*;
 import java.io.*;
 import java.lang.reflect.Array;

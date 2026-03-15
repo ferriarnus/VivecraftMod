@@ -17,7 +17,7 @@ import org.vivecraft.common.api_impl.data.VRBodyPartDataImpl;
 import org.vivecraft.common.api_impl.data.VRPoseImpl;
 import org.vivecraft.common.utils.MathUtils;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.lang.Math;
 
 public class VRData {

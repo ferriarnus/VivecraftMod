@@ -6,7 +6,7 @@ import org.vivecraft.client.gui.framework.widgets.GuiVROption;
 import org.vivecraft.client_vr.ClientDataHolderVR;
 import org.vivecraft.client_vr.settings.VRSettings;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.function.BiFunction;
 
 public class VROptionLayout {

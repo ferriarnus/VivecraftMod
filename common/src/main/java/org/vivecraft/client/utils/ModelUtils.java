@@ -4,6 +4,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
+import org.jetbrains.annotations.Nullable;
 import org.joml.*;
 import org.vivecraft.client.ClientVRPlayers;
 import org.vivecraft.client.extensions.EntityRenderStateExtension;
@@ -14,7 +15,6 @@ import org.vivecraft.mod_compat_vr.mca.MCAHelper;
 import org.vivecraft.mod_compat_vr.optifine.OptifineHelper;
 import org.vivecraft.mod_compat_vr.sodium.SodiumHelper;
 
-import javax.annotation.Nullable;
 import java.lang.Math;
 
 public class ModelUtils {
@@ -403,10 +403,10 @@ public class ModelUtils {
      * @param tempV2        Vector3f object to work with
      */
     public static void estimateJointDir(
-        ModelPart upper, ModelPart lower, Quaternionfc lowerRot, float bodyYaw, boolean jointDown,
-        @Nullable Vector3fc jointPos, HumanoidRenderState renderState, ClientVRPlayers.RotInfo rotInfo,
-        boolean useWorldScale,
-        Vector3f tempV, Vector3f tempV2)
+            ModelPart upper, ModelPart lower, Quaternionfc lowerRot, float bodyYaw, boolean jointDown,
+            @Nullable Vector3fc jointPos, HumanoidRenderState renderState, ClientVRPlayers.RotInfo rotInfo,
+            boolean useWorldScale,
+            Vector3f tempV, Vector3f tempV2)
     {
         if (jointPos != null) {
             // use mid arm point to joint direction

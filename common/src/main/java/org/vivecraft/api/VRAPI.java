@@ -5,7 +5,7 @@ import org.vivecraft.api.data.VRPose;
 import org.vivecraft.api.data.VRPoseHistory;
 import org.vivecraft.common.api_impl.VRAPIImpl;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The main interface for interacting with Vivecraft from common code.

@@ -12,7 +12,7 @@ import org.vivecraft.client_vr.VRData;
 import org.vivecraft.client_vr.render.helpers.DebugRenderHelper;
 import org.vivecraft.common.utils.MathUtils;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class ScreenshotCameraModule implements DebugRenderModule, HeldInteractModule {
 

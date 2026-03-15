@@ -9,7 +9,7 @@ import org.vivecraft.common.network.packet.VivecraftPayload;
 import org.vivecraft.common.network.packet.c2s.VivecraftPayloadC2S;
 import org.vivecraft.common.network.packet.s2c.VivecraftPayloadS2C;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Vivecraft network payload that holds a raw packet, has no specific flow direction

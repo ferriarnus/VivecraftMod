@@ -6,7 +6,7 @@ import org.vivecraft.api.data.VRBodyPart;
 import org.vivecraft.api.data.VRBodyPartData;
 import org.vivecraft.api.data.VRPose;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public record VRPoseImpl(VRBodyPartData hmd, VRBodyPartData c0, VRBodyPartData c1,
                          VRBodyPartData rightFoot, VRBodyPartData leftFoot,

@@ -10,7 +10,7 @@ import org.vivecraft.common.network.packet.s2c.VivecraftPayloadS2C;
 import org.vivecraft.common.utils.TooltipUtil;
 import org.vivecraft.server.ServerVivePlayer;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;

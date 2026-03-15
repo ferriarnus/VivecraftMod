@@ -15,7 +15,7 @@ import org.vivecraft.client_vr.provider.MCVR;
 import org.vivecraft.common.api_impl.data.VRPoseImpl;
 import org.vivecraft.common.utils.MathUtils;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * holds all data from a player

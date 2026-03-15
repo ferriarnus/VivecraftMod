@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3fc;
 import org.vivecraft.Services;
-import org.vivecraft.Xplat;
 import org.vivecraft.api.data.FBTMode;
 import org.vivecraft.api.data.VRBodyPart;
 import org.vivecraft.client.ClientVRPlayers;
@@ -34,7 +33,7 @@ import org.vivecraft.common.network.packet.s2c.*;
 import org.vivecraft.common.utils.MathUtils;
 import org.vivecraft.mod_compat_vr.ReplayHelper;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.function.Supplier;
 

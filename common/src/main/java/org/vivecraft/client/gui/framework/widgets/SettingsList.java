@@ -20,6 +20,7 @@ import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.Nullable;
 import org.vivecraft.client.gui.framework.screens.KeymappingSelectionScreen;
 import org.vivecraft.client.utils.StringSimilarity;
 import org.vivecraft.client_vr.ClientDataHolderVR;
@@ -28,7 +29,6 @@ import org.vivecraft.common.utils.TooltipUtil;
 import org.vivecraft.server.ServerNetworking;
 import org.vivecraft.server.config.ConfigBuilder;
 
-import javax.annotation.Nullable;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;

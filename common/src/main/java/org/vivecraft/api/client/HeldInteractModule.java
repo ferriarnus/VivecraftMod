@@ -3,7 +3,7 @@ package org.vivecraft.api.client;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Compared to a regular {@link InteractModule}, a HeldInteractModule blocks other modules from using the

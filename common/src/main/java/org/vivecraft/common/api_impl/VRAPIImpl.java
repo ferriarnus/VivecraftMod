@@ -11,7 +11,7 @@ import org.vivecraft.client.api_impl.VRClientAPIImpl;
 import org.vivecraft.common.api_impl.data.VRPoseHistoryImpl;
 import org.vivecraft.server.ServerVRPlayers;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;

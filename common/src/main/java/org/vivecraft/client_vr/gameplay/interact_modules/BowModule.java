@@ -12,7 +12,7 @@ import org.vivecraft.client_vr.ClientDataHolderVR;
 import org.vivecraft.client_vr.gameplay.trackers.BowTracker;
 import org.vivecraft.common.network.packet.c2s.DrawPayloadC2S;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * the bow interact module handles the key presses and sending of use packets for the {@link BowTracker}

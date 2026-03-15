@@ -3,7 +3,7 @@ package org.vivecraft.client_vr.provider.openvr_lwjgl.control;
 import org.vivecraft.client_vr.provider.ControllerType;
 import org.vivecraft.client_vr.provider.openvr_lwjgl.MCOpenVR;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;

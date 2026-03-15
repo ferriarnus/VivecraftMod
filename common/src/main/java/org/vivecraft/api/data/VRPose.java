@@ -2,7 +2,7 @@ package org.vivecraft.api.data;
 
 import net.minecraft.world.InteractionHand;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents the pose of the VR player. In other words, the position and rotation data of all tracked body parts of

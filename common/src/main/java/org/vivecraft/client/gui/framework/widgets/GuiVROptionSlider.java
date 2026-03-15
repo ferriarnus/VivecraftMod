@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
 import org.vivecraft.client_vr.ClientDataHolderVR;
 import org.vivecraft.client_vr.settings.VRSettings;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class GuiVROptionSlider extends AbstractSliderButton implements GuiVROption {
     @Nullable
