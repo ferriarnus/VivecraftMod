@@ -20,7 +20,7 @@ configurations.all {
     resolutionStrategy.eachDependency { details ->
         if (details.requested.group == "org.lwjgl" &&
             details.requested.name != "lwjgl-openvr") {
-            details.useVersion "3.4.1"
+            details.useVersion "3.3.6"
         }
     }
 }
@@ -39,10 +39,10 @@ dependencies {
 
     compileOnly project(':stubs')
 
-    implementation("org.lwjgl:lwjgl:3.4.1")
-    implementation("org.lwjgl:lwjgl-opengl:3.4.1")
-    implementation("org.lwjgl:lwjgl:3.4.1:natives-windows")
-    implementation("org.lwjgl:lwjgl-opengl:3.4.1:natives-windows")
+    implementation("org.lwjgl:lwjgl:3.3.6")
+    implementation("org.lwjgl:lwjgl-opengl:3.3.6")
+    implementation("org.lwjgl:lwjgl:3.3.6:natives-windows")
+    implementation("org.lwjgl:lwjgl-opengl:3.3.6:natives-windows")
     implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}") { transitive = false }
     implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-linux") { transitive = false }
     implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-macos") { transitive = false }
