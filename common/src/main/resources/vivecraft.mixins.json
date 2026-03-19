@@ -103,13 +103,14 @@
     "client_vr.world.level.block.TrapDoorBlockVRMixin",
     "client_vr.world.level.block.state.StateHolderVRMixin",
 
-//    "client_vr.lwjgl.VRChaperoneMixin",
-    "client_vr.lwjgl.VRCompositorMixin"
-//    "client_vr.lwjgl.VRInputMixin",
-//    "client_vr.lwjgl.VRMixin",
-//    "client_vr.lwjgl.VRRenderModelsMixin",
-//    "client_vr.lwjgl.VRSettingsMixin",
-//    "client_vr.lwjgl.VRSystemMixin"
+    "client_vr.lwjgl.VRApplicationsMixin",
+    "client_vr.lwjgl.VRChaperoneMixin",
+    "client_vr.lwjgl.VRCompositorMixin",
+    "client_vr.lwjgl.VRInputMixin",
+    "client_vr.lwjgl.VRMixin",
+    "client_vr.lwjgl.VRRenderModelsMixin",
+    "client_vr.lwjgl.VRSettingsMixin",
+    "client_vr.lwjgl.VRSystemMixin"
   ],
   "minVersion": "0.8.4",
   "mixins": [

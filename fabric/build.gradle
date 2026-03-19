@@ -7,7 +7,7 @@ configurations.all {
     resolutionStrategy.eachDependency { details ->
         if (details.requested.group == "org.lwjgl" &&
             details.requested.name != "lwjgl-openvr") {
-            details.useVersion "3.3.6"
+            details.useVersion "3.4.1"
         }
     }
 }
@@ -42,10 +42,10 @@ dependencies {
     include(implementation('com.electronwill.night-config:toml:3.6.6'))
     include(implementation('com.electronwill.night-config:core:3.6.6'))
 
-    implementation("org.lwjgl:lwjgl:3.3.6")
-    implementation("org.lwjgl:lwjgl-opengl:3.3.6")
-    implementation("org.lwjgl:lwjgl:3.3.6:natives-windows")
-    implementation("org.lwjgl:lwjgl-opengl:3.3.6:natives-windows")
+    implementation("org.lwjgl:lwjgl:3.4.1")
+    implementation("org.lwjgl:lwjgl-opengl:3.4.1")
+    implementation("org.lwjgl:lwjgl:3.4.1:natives-windows")
+    implementation("org.lwjgl:lwjgl-opengl:3.4.1:natives-windows")
     include(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}")) { transitive = false }
     include(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-linux")) { transitive = false }
     include(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-macos")) { transitive = false }

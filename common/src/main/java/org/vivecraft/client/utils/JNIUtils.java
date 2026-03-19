@@ -19,7 +19,7 @@ public class JNIUtils {
 
     private static FFIInfo get(String format) {
         FFIInfo info = FFIs.get(format);
-        VRSettings.LOGGER.warn("calling: {}", Thread.currentThread().getStackTrace()[3]);
+        //VRSettings.LOGGER.warn("calling: {}", Thread.currentThread().getStackTrace()[3]);
         if (info == null) {
             String[] parameters = format.split("_");
             FFICIF cif = FFICIF.malloc();
@@ -67,6 +67,20 @@ public class JNIUtils {
             LibFFI.ffi_call(info.cif, __functionAddress, returnValue, pointers);
 
             return returnValue.getInt(0);
+        }
+    }
+
+    public static long callJ(String signature, long __functionAddress, Object... args) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            FFIInfo info = get(signature);
+
+            PointerBuffer pointers = getPointers(stack, info.args, args);
+
+            ByteBuffer returnValue = stack.malloc(Long.BYTES);
+
+            LibFFI.ffi_call(info.cif, __functionAddress, returnValue, pointers);
+
+            return returnValue.getLong(0);
         }
     }
 
