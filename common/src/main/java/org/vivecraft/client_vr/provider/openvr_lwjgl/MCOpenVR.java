@@ -25,6 +25,7 @@ import org.vivecraft.client.VivecraftVRMod;
 import org.vivecraft.client.gui.screens.FBTCalibrationScreen;
 import org.vivecraft.client.utils.ClientUtils;
 import org.vivecraft.client.utils.FileUtils;
+import org.vivecraft.client.utils.JNIUtils;
 import org.vivecraft.client_vr.ClientDataHolderVR;
 import org.vivecraft.client_vr.VRState;
 import org.vivecraft.client_vr.gameplay.screenhandlers.GuiHandler;
@@ -273,6 +274,8 @@ public class MCOpenVR extends MCVR {
         if (this.activeActionSetsBuffer != null) {
             this.activeActionSetsBuffer.free();
         }
+
+        JNIUtils.free();
     }
 
     /**

@@ -28,31 +28,31 @@ public class VRCompositorMixin {
         int eEye, long pTexture, long pBounds, int nSubmitFlags, long __functionAddress,
         Operation<Integer> original)
     {
-
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            FFICIF cif = FFICIF.malloc(stack);
-            PointerBuffer argTypes = stack.mallocPointer(4);
-            argTypes.put(LibFFI.ffi_type_sint32);
-            argTypes.put(LibFFI.ffi_type_pointer);
-            argTypes.put(LibFFI.ffi_type_pointer);
-            argTypes.put(LibFFI.ffi_type_sint32);
-            argTypes.flip();
-            int ret = LibFFI.ffi_prep_cif(cif, LibFFI.FFI_DEFAULT_ABI, LibFFI.ffi_type_sint32, argTypes);
-
-            PointerBuffer pointers = stack.mallocPointer(4);
-            pointers.put(stack.ints(eEye));
-            pointers.put(stack.pointers(pTexture).address());
-            pointers.put(stack.pointers(pBounds).address());
-            pointers.put(stack.ints(nSubmitFlags));
-            pointers.flip();
-
-            ByteBuffer returnValue = stack.malloc(Integer.BYTES);
-
-            LibFFI.ffi_call(cif, __functionAddress, returnValue, pointers);
-
-            return returnValue.getInt(0);
-        }
-        //return JNIUtils.callI("IPPI_I", __functionAddress, eEye, pTexture, pBounds, nSubmitFlags);
+//
+//        try (MemoryStack stack = MemoryStack.stackPush()) {
+//            FFICIF cif = FFICIF.malloc(stack);
+//            PointerBuffer argTypes = stack.mallocPointer(4);
+//            argTypes.put(LibFFI.ffi_type_sint32);
+//            argTypes.put(LibFFI.ffi_type_pointer);
+//            argTypes.put(LibFFI.ffi_type_pointer);
+//            argTypes.put(LibFFI.ffi_type_sint32);
+//            argTypes.flip();
+//            int ret = LibFFI.ffi_prep_cif(cif, LibFFI.FFI_DEFAULT_ABI, LibFFI.ffi_type_sint32, argTypes);
+//
+//            PointerBuffer pointers = stack.mallocPointer(4);
+//            pointers.put(stack.ints(eEye));
+//            pointers.put(stack.pointers(pTexture).address());
+//            pointers.put(stack.pointers(pBounds).address());
+//            pointers.put(stack.ints(nSubmitFlags));
+//            pointers.flip();
+//
+//            ByteBuffer returnValue = stack.malloc(Integer.BYTES);
+//
+//            LibFFI.ffi_call(cif, __functionAddress, returnValue, pointers);
+//
+//            return returnValue.getInt(0);
+//        }
+        return JNIUtils.callI("IPPI_I", __functionAddress, eEye, pTexture, pBounds, nSubmitFlags);
     }
 //
 //    @WrapOperation(method = "nVRCompositor_GetFrameTiming", at = @At(value = "INVOKE", target = "Lorg/lwjgl/system/JNI;callPZ(JIJ)Z"), remap = false)

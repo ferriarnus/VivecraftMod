@@ -25,7 +25,7 @@ public class JNIUtils {
             FFICIF cif = FFICIF.malloc();
             PointerBuffer argTypes = null;
             if (!parameters[0].isEmpty()) {
-                argTypes = PointerBuffer.allocateDirect(parameters[0].length());
+                argTypes = MemoryUtil.memAllocPointer(parameters[0].length());
                 for (int i = 0; i < parameters[0].length(); i++) {
                     argTypes.put(getType(parameters[0].charAt(i)));
                 }
@@ -36,7 +36,7 @@ public class JNIUtils {
             if (ret != LibFFI.FFI_OK) {
                 throw new RuntimeException("FFI error: " + ret);
             }
-            info = new FFIInfo(cif, parameters[0].toCharArray());
+            info = new FFIInfo(cif, parameters[0].toCharArray(), argTypes);
             FFIs.put(format, info);
         }
         return info;
@@ -104,13 +104,13 @@ public class JNIUtils {
         PointerBuffer pointers = stack.mallocPointer(args.length);
         for (int i = 0; i < args.length; i++) {
             switch (types[i]) {
-                case 'I', 'U' -> pointers.put(MemoryUtil.memAddress(stack.ints((Integer) args[i])));
-                case 'J' -> pointers.put(MemoryUtil.memAddress(stack.longs((Long) args[i])));
-                case 'F' -> pointers.put(MemoryUtil.memAddress(stack.floats((Float) args[i])));
-                case 'S' -> pointers.put(MemoryUtil.memAddress(stack.shorts((Short) args[i])));
-                case 'P' -> pointers.put(MemoryUtil.memAddress(stack.longs((Long) args[i])));
+                case 'I', 'U' -> pointers.put(stack.ints((Integer) args[i]));
+                case 'J' -> pointers.put(stack.longs((Long) args[i]));
+                case 'F' -> pointers.put(stack.floats((Float) args[i]));
+                case 'S' -> pointers.put(stack.shorts((Short) args[i]));
+                case 'P' -> pointers.put(stack.pointers((Long) args[i]).address());
                 case 'Z' ->
-                    pointers.put(MemoryUtil.memAddress(stack.bytes((Boolean) args[i] ? (byte) 1 : (byte) 0)));
+                    pointers.put(stack.bytes((Boolean) args[i] ? (byte) 1 : (byte) 0));
             }
         }
         pointers.flip();
@@ -130,5 +130,12 @@ public class JNIUtils {
         };
     }
 
-    private record FFIInfo(FFICIF cif, char[] args) {}
+    public static void free() {
+        for (FFIInfo info : FFIs.values()) {
+            info.cif.free();
+            info.buffer.free();
+        }
+    }
+
+    private record FFIInfo(FFICIF cif, char[] args, PointerBuffer buffer) {}
 }
