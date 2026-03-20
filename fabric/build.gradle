@@ -46,6 +46,7 @@ dependencies {
     implementation("org.lwjgl:lwjgl-opengl:3.4.1")
     implementation("org.lwjgl:lwjgl:3.4.1:natives-windows")
     implementation("org.lwjgl:lwjgl-opengl:3.4.1:natives-windows")
+
     include(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}")) { transitive = false }
     include(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-linux")) { transitive = false }
     include(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-macos")) { transitive = false }
@@ -133,3 +134,18 @@ loom.remapConfigurations.configureEach {
         }
     }
 }
+
+jar {
+    archiveClassifier.set("dev")
+    manifest {
+        attributes(
+            'Main-Class': "org.vivecraft.LaunchPopup"
+        )
+    }
+}
+
+
+remapJar {
+    archiveClassifier.set("fabric")
+}
+

@@ -2,37 +2,35 @@ plugins {
     id 'multiloader-loader'
     id 'net.minecraftforge.gradle' version '[7.0.3,8)'
     id 'idea'
+    id 'com.gradleup.shadow' version '9.0.0-beta15'
 }
-base {
-    archivesName = "${mod_name}-forge-${minecraft_version}"
-}
-//mixin {
-//    config("${mod_id}.mixins.json")
-//    config("${mod_id}.forge.mixins.json")
-//
-//    config("${mod_id}.accessories.mixins.json")
-//    config("${mod_id}.alexmobs.mixins.json")
-//    config("${mod_id}.bedrockify.mixins.json")
-//    config("${mod_id}.blur.mixins.json")
-//    config("${mod_id}.cataclysm.mixins.json")
-//    config("${mod_id}.dynamicfps.mixins.json")
-//    config("${mod_id}.elementa.mixins.json")
-//    config("${mod_id}.emf.mixins.json")
-//    config("${mod_id}.epicfight.mixins.json")
-//    config("${mod_id}.iris.mixins.json")
-//    config("${mod_id}.mca.mixins.json")
-//    config("${mod_id}.optifine.mixins.json")
-//    config("${mod_id}.rei.mixins.json")
-//    config("${mod_id}.resolutioncontrol.mixins.json")
-//    config("${mod_id}.sereneseasons.mixins.json")
-//    config("${mod_id}.sodium.mixins.json")
-//    config("${mod_id}.voxy.mixins.json")
-//    config("${mod_id}.xaerosmimimap.mixins.json")
-//    config("${mod_id}.xaerosworldmap.mixins.json")
-//}
+
 jar {
     manifest {
-        attributes["MixinConfigs"] = "${mod_id}.mixins.json,${mod_id}.forge.mixins.json"
+        attributes["MixinConfigs"] = """
+            ${mod_id}.mixins.json,
+            ${mod_id}.forge.mixins.json,
+
+            ${mod_id}.accessories.mixins.json,
+            ${mod_id}.alexmobs.mixins.json,
+            ${mod_id}.bedrockify.mixins.json,
+            ${mod_id}.blur.mixins.json,
+            ${mod_id}.cataclysm.mixins.json,
+            ${mod_id}.dynamicfps.mixins.json,
+            ${mod_id}.elementa.mixins.json,
+            ${mod_id}.emf.mixins.json,
+            ${mod_id}.epicfight.mixins.json,
+            ${mod_id}.iris.mixins.json,
+            ${mod_id}.mca.mixins.json,
+            ${mod_id}.optifine.mixins.json,
+            ${mod_id}.rei.mixins.json,
+            ${mod_id}.resolutioncontrol.mixins.json,
+            ${mod_id}.sereneseasons.mixins.json,
+            ${mod_id}.sodium.mixins.json,
+            ${mod_id}.voxy.mixins.json,
+            ${mod_id}.xaerosmimimap.mixins.json,
+            ${mod_id}.xaerosworldmap.mixins.json
+            """
     }
 }
 
@@ -42,20 +40,43 @@ minecraft {
     // Automatically enable forge AccessTransformers if the file exists
     // This location is hardcoded in Forge and can not be changed.
     // https://github.com/MinecraftForge/MinecraftForge/blob/be1698bb1554f9c8fa2f58e32b9ab70bc4385e60/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModFile.java#L123
-    // Forge still uses SRG names during compile time, so we cannot use the common AT's
-    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
-        accessTransformers = true
-        accessTransformer = at
+        accessTransformers.from(at.absolutePath)
     }
 
     runs {
         configureEach {
             args "-mixin.config=${mod_id}.mixins.json"
             args "-mixin.config=${mod_id}.forge.mixins.json"
+
+            args "-mixin.config=${mod_id}.accessories.mixins.json"
+            args "-mixin.config=${mod_id}.alexmobs.mixins.json"
+            args "-mixin.config=${mod_id}.bedrockify.mixins.json"
+            args "-mixin.config=${mod_id}.blur.mixins.json"
+            args "-mixin.config=${mod_id}.cataclysm.mixins.json"
+            args "-mixin.config=${mod_id}.dynamicfps.mixins.json"
+            args "-mixin.config=${mod_id}.elementa.mixins.json"
+            args "-mixin.config=${mod_id}.emf.mixins.json"
+            args "-mixin.config=${mod_id}.epicfight.mixins.json"
+            args "-mixin.config=${mod_id}.iris.mixins.json"
+            args "-mixin.config=${mod_id}.mca.mixins.json"
+            args "-mixin.config=${mod_id}.optifine.mixins.json"
+            args "-mixin.config=${mod_id}.rei.mixins.json"
+            args "-mixin.config=${mod_id}.resolutioncontrol.mixins.json"
+            args "-mixin.config=${mod_id}.sereneseasons.mixins.json"
+            args "-mixin.config=${mod_id}.sodium.mixins.json"
+            args "-mixin.config=${mod_id}.voxy.mixins.json"
+            args "-mixin.config=${mod_id}.xaerosmimimap.mixins.json"
+            args "-mixin.config=${mod_id}.xaerosworldmap.mixins.json"
         }
         client {
             workingDir = file('runs/client')
+            mods {
+                modClientRun {
+                    source sourceSets.main
+                }
+            }
         }
 
         server {
@@ -71,23 +92,72 @@ minecraft {
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
 repositories {
-    maven minecraft.mavenizer
+    minecraft.mavenizer(it)
     maven fg.forgeMaven
     maven fg.minecraftLibsMaven
+    mavenCentral()
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { details ->
+        if (details.requested.group == "org.lwjgl" &&
+            details.requested.name != "lwjgl-openvr") {
+            details.useVersion "3.4.1"
+        }
+    }
+}
+
+configurations {
+    bundle {
+        // bundle command, to copy jar contents with the shadow plugin
+        canBeResolved = true
+        canBeConsumed = false
+    }
 }
 
 dependencies {
     implementation minecraft.dependency("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
-    annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
     compileOnly project(':stubs')
-}
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
+    implementation("org.lwjgl:lwjgl:3.4.1")
+    implementation("org.lwjgl:lwjgl-opengl:3.4.1")
+    implementation("org.lwjgl:lwjgl:3.4.0:natives-windows")
+    implementation("org.lwjgl:lwjgl-opengl:3.4.0:natives-windows")
 
-        }
-    }
+    // shadow the natives
+    bundle(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}")) { transitive = false }
+    bundle(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-linux")) { transitive = false }
+    bundle(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-macos")) { transitive = false }
+    bundle(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-windows")) { transitive = false }
+
+    bundle(implementation("com.illposed.osc:javaosc-core:0.9")) { transitive = false }
+    bundle(implementation("com.github.bhaptics:tact-java:0.1.4"))
+    bundle(implementation("org.java-websocket:Java-WebSocket:1.5.1"))
+
+    // for sodium compat
+    compileOnly "maven.modrinth:sodium:mc1.21.11-0.8.2-fabric"
+
+    // for iris compat
+    compileOnly "maven.modrinth:iris:1.10.4+1.21.11-fabric"
+
+    // for REI compat
+    compileOnly("me.shedaniel:RoughlyEnoughItems-fabric:18.0.796") { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" exclude group: "dev.architectury" }
+
+    // for Pehkui compat
+    compileOnly("com.github.Virtuoel:Pehkui:3.7.12") { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" }
+
+    // other mods
+    compileOnly "maven.modrinth:dynamic-fps:3.4.3"
+    // modCompileOnly("com.simibubi.create:create-fabric-1.19.2:0.5.0.i-969+1.19.2")
+    // modCompileOnly "maven.modrinth:lithium:mc1.20.4-0.12.1"
+    // modCompileOnly "maven.modrinth:indium:1.0.30+mc1.20.4"
+    compileOnly "maven.modrinth:resolution-control-plus:3.0.0"
+
+    // for immersive portals compat
+    compileOnly('com.github.iPortalTeam:ImmersivePortalsMod:v5.1.7-mc1.20.4') { exclude group: "net.fabricmc" exclude group: "net.fabricmc.fabric-api" }
+
+    //for epic fight compat
+    compileOnly("maven.modrinth:epic-fight:20.6.3")
 }
 
 // Implement mcgradleconventions loader attribute
@@ -107,4 +177,27 @@ sourceSets.configureEach {
             }
         }
     }
+}
+
+jar {
+    archiveClassifier.set("dev")
+    manifest {
+        attributes(
+            'Main-Class': "org.vivecraft.LaunchPopup"
+        )
+    }
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+    exclude "architectury.common.json"
+
+    configurations = [
+        project.configurations.bundle
+    ]
+    archiveClassifier.set("forge")
+}
+
+artifacts {
+    archives shadowJar
 }

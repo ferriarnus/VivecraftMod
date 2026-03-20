@@ -1,6 +1,7 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
+    id 'com.gradleup.shadow' version '9.0.0-beta15'
 }
 
 neoForge {
@@ -49,26 +50,27 @@ configurations.all {
     }
 }
 
+configurations {
+    bundle {
+        // bundle command, to copy jar contents with the shadow plugin
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
 dependencies {
     implementation("org.lwjgl:lwjgl:3.4.1")
     implementation("org.lwjgl:lwjgl-opengl:3.4.1")
     implementation("org.lwjgl:lwjgl:3.4.0:natives-windows")
     implementation("org.lwjgl:lwjgl-opengl:3.4.0:natives-windows")
-    implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}") { transitive = false }
-    implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-linux") { transitive = false }
-    implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-macos") { transitive = false }
-    implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-windows") { transitive = false }
-    implementation("com.illposed.osc:javaosc-core:0.9") { transitive = false }
-    implementation("com.github.bhaptics:tact-java:0.1.4") { transitive = false }
-    implementation("org.java-websocket:Java-WebSocket:1.5.1") { transitive = false }
 
     compileOnly project(':stubs')
 
     // shadow the natives
-    jarJar("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}") { transitive = false }
-    jarJar("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-linux") { transitive = false }
-    jarJar("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-macos") { transitive = false }
-    jarJar("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-windows") { transitive = false }
+    bundle(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}")) { transitive = false }
+    bundle(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-linux")) { transitive = false }
+    bundle(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-macos")) { transitive = false }
+    bundle(implementation("org.lwjgl:lwjgl-openvr:${rootProject.lwjgl_version}:natives-windows")) { transitive = false }
 
     jarJar(implementation("com.illposed.osc:javaosc-core:0.9"))
     jarJar(implementation("com.github.bhaptics:tact-java:0.1.4"))
@@ -119,4 +121,27 @@ sourceSets.configureEach {
             }
         }
     }
+}
+
+jar {
+    archiveClassifier.set("dev")
+    manifest {
+        attributes(
+            'Main-Class': "org.vivecraft.LaunchPopup"
+        )
+    }
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+    exclude "architectury.common.json"
+
+    configurations = [
+        project.configurations.bundle
+    ]
+    archiveClassifier.set("neoforge")
+}
+
+artifacts {
+    archives shadowJar
 }
